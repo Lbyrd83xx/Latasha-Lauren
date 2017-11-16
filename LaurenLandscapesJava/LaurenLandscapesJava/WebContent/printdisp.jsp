@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,23 +15,6 @@
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 	
       }
-  .preview {
-  	float: left;
-	margin-right: 20px;
-  }    
-  .preview .thumb {
-    border: 0 none;
-    margin-top: 5px;
-    width: 252px;
-  }
-  .outofstock {
-  	background-color: red;
-  	pointer-events: none;
-   	cursor: default;
-  }
-  a.outofstock {
-   color: white;
-  }
 	
 	/* Custom container */
       .container-narrow {
@@ -61,7 +44,6 @@
           padding-left: 5px;
           padding-right: 5px;
         }
-       
 	
   </style>
 
@@ -71,13 +53,12 @@
   <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          
-          <a class="brand pull-left" href="/home"><em>${myapp.title} </em></a>
-	  
-          <div class="nav-collapse collapse">
-           
-          </div><!--/.nav-collapse -->
-        </div>
+      <a class="brand pull-left" href="/home"><em>${myapp.title} </em></a>
+      
+      
+		<div class="nav-collapse collapse">
+		</div>
+	  </div>
       </div>
     </div>  <!-- end of div for nav bar-->
   
@@ -86,45 +67,28 @@
   <tr> -->
   <div class="hero-unit">
   <div>
-  <h2 class="text-center"><em>${myapp.title}</em></h2> </div>
+  <h2><em>${print.title}</em></h2> </div>
   <br/>
   
- 		<p>
+		<img src="static/images/${print.imgsrc}" class="sale-photo">
+	
+		<h3>
+			About this landscape:
+		</h3>
+	
+		<div id="description">
+			${print.description}
+		</div>
 		
-			Lauren's Lovely Landscapes is a collection of some of her favorite landscapes.  
-			If you would like to purchase a print, please <a href="mailto:lauren@example.com">
-			e-mail Lauren</a> with the name	of the print.
-			
-		</p>
+		<h3>
+			Price:
+		</h3>
 		
-		<p>
-			
-			Please check back often to see if we have sales!
-			
-		</p>
-		
-		<div>
-			<c:forEach var="print" items="${prints}">
-			 <c:choose>
-				<c:when test"${print.quan < 1}">
-					<div class="preview outofstock">
-					<a href="printdisp?id=${print.id}" class="outofstock">
-					${print.title} - <i><small>(out of stock)</small></i><br>
-				</c:when>
-			<c:otherwise>
-				<div class="preview">
-					<a href="printdisp?id=${print.id}">
-					${print.title}<br>
-			</c:otherwise>
-			</c:choose>
-					<img src="static/images/${print.imgsrc}" class="thumb">
-				</a>
-			</div>
-			</c:forEach>
-			
-		</div> 
-		<p style="clear:both"></p>
+		<div id="price">
+		  <fmt:formatNumber value="${print.price}" type="currency"/>
+		</div>
   
+
 
  
   </div> <!-- end of the hero-unit-->
